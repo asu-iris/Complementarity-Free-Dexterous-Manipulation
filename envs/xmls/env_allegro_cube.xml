@@ -1,0 +1,41 @@
+<mujoco model="right_allegro_hand scene">
+  <include file="allegro_right_hand.xml"/>
+
+  <statistic center="0 0 0" extent="0.3"/>
+
+  <visual>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <quality shadowsize="8192"/>
+    <global azimuth="130" elevation="-40" offwidth="1280" offheight="960"/>
+  </visual>
+
+  <asset>
+    <texture name='cube_surface' file="../assets/textures/iris_block.png" gridsize="3 4" gridlayout=".U..LFRB.D.."/>
+    <material name="obj_material" texture="cube_surface" specular="5" shininess=".0"/>
+
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0."/>
+  </asset>
+
+  <worldbody>
+    <light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8"  castshadow="false" pos="0 1 4" dir="0 0 -1" name="light0"/>
+    <camera name="demo-cam" pos="-0.003 -0.393 0.317" xyaxes="1.000 -0.000 0.000 0.000 0.462 0.887"/>
+
+    <geom name="floor" pos="0 0 -0.1" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <body name="goal" pos="-0.1 -0.00 0.2">
+        <geom name="goal_geom" size="0.025 0.025 0.025" material="obj_material" type="box" conaffinity="0" contype="0"
+        pos="0 0 0"  rgba="1 0  1 0.0"/>
+      <geom name="goal-visual-above" size="0.025 0.025 0.025" material="obj_material" type="box" conaffinity="0" contype="0"
+        pos="0 0 0.15"  rgba="1 0  1 0.7"/>
+    </body>
+    
+    <body name="obj" pos="0.0 0.0 0.025">
+        <freejoint name="cube_table"/>
+        <geom name="obj" type="box" mass="0.1" material="obj_material" size="0.025 0.025 0.025"
+              quat="1 0 0 0" friction="0.5" rgba="1.0 1.0 0 0.99"
+              />
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,88 @@
+<mujoco model="three_fingertips_scene">
+<visual>
+  <global offwidth="1280" offheight="960"/>
+</visual>
+
+    <compiler angle="radian"/>
+    <size njmax="500" nconmax="100"/>
+    <asset>
+        <mesh name="object" file="../assets/objects/bunny.stl" scale="0.8 0.8 0.8"/>
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4"
+        rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5"
+        reflectance="0.0"/>
+    </asset>
+
+    <worldbody>
+        <light directional="true" ambient="0.6 0.6 0.6" diffuse="0.8 0.8 0.8"  castshadow="false" pos="0 1 4" dir="0 0 -1" name="light0"/>
+        <camera name="demo-cam" pos="0.086 -0.324 0.157" xyaxes="0.966 0.259 0.000 -0.102 0.380 0.919"/>
+        <camera name="demo-cam2" pos="0.070 -0.509 0.164" xyaxes="0.991 0.132 -0.000 -0.032 0.243 0.969"/>
+        <camera name="demo-cam3" pos="-0.001 -0.368 0.475" xyaxes="1.000 -0.003 0.000 0.002 0.790 0.613"/>
+
+
+        <!-- ============================= virtual obj ========================================= -->
+        <body name="goal" >
+            <geom name="goal" type="mesh" mesh="object" conaffinity="0" contype="0"
+                pos="0.015 0.0 -0.005" quat="1 0 0 0"
+                rgba="0.0 0.5 0.0 0.3"/>
+        </body>
+
+        <!-- ============================= real obj ========================================= -->
+        <body name="obj" >
+            <freejoint name="object_table"/>
+            <geom name="obj" type="mesh" mesh="object"
+                pos="0.015 0.0 -0.005" quat="1 0 0 0"
+                mass="0.01"
+                condim="6"
+                friction="0.9" rgba="0.5 0.5 0.5 1.0"/>
+        </body>
+
+        <geom name="table" rgba="0.8 0.8 0.8 1.0" friction="0.5"
+                size="0 0 0.05" type="plane" material="groundplane"
+                condim="6"
+              />
+
+        <body name="fingertip0" pos="0.0 0.0 0.0" quat="1 0 0 0">
+            <joint name="fingertip0_x" type="slide" axis="1 0 0"/>
+            <joint name="fingertip0_y" type="slide" axis="0 1 0"/>
+            <joint name="fingertip0_z" type="slide" axis="0 0 1"/>
+            <geom name="fingertip0"
+                condim="6"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                size="0.01" type="sphere" friction="0.5" rgba="0.5 0 0 1"/>
+        </body>
+
+        <body name="fingertip1" pos="0.0 0.0 0.0" quat="1 0 0 0">
+            <joint name="fingertip1_x" type="slide" axis="1 0 0"/>
+            <joint name="fingertip1_y" type="slide" axis="0 1 0"/>
+            <joint name="fingertip1_z" type="slide" axis="0 0 1"/>
+            <geom name="fingertip1"
+                condim="6"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                size="0.01" type="sphere" friction="0.5" rgba="0 0.5 0 1"/>
+        </body>
+
+        <body name="fingertip2" pos="0.0 0.0 0.0" quat="1 0 0 0">
+            <joint name="fingertip2_x" type="slide" axis="1 0 0"/>
+            <joint name="fingertip2_y" type="slide" axis="0 1 0"/>
+            <joint name="fingertip2_z" type="slide" axis="0 0 1"/>
+            <geom name="fingertip2"
+                condim="6"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                size="0.01" type="sphere" friction="0.5" rgba="0 0 0.5 1"/>
+        </body>
+
+    </worldbody>
+
+    <actuator>
+        <motor name="fingertip0_refx" joint="fingertip0_x"  ctrllimited="false"/>
+        <motor name="fingertip0_refy" joint="fingertip0_y"  ctrllimited="false"/>
+        <motor name="fingertip0_refz" joint="fingertip0_z"  ctrllimited="false"/>
+        <motor name="fingertip1_refx" joint="fingertip1_x"  ctrllimited="false"/>
+        <motor name="fingertip1_refy" joint="fingertip1_y"  ctrllimited="false"/>
+        <motor name="fingertip1_refz" joint="fingertip1_z"  ctrllimited="false"/>
+        <motor name="fingertip2_refx" joint="fingertip2_x"  ctrllimited="false"/>
+        <motor name="fingertip2_refy" joint="fingertip2_y"  ctrllimited="false"/>
+        <motor name="fingertip2_refz" joint="fingertip2_z"  ctrllimited="false"/>
+    </actuator>
+</mujoco>

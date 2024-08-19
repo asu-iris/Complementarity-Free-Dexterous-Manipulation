@@ -1,0 +1,40 @@
+<mujoco model="right_allegro_hand scene">
+  <include file="allegro_right_hand.xml"/>
+
+  <statistic center="0 0 0" extent="0.3"/>
+
+  <visual>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <quality shadowsize="8192"/>
+    <global azimuth="130" elevation="-40"/>
+  </visual>
+
+  <asset>
+    <mesh name="object" file="../assets/objects/flashlight.stl" />
+    <texture name='surface' file="../assets/textures/general_block.png" gridsize="3 4" gridlayout=".U..LFRB.D.."/>
+    <material name="obj_material" texture="surface" specular="1" shininess="0.3" reflectance="0.4"/>
+
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+  <worldbody>
+    <light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8"  castshadow="false" pos="0 1 4" dir="0 0 -1" name="light0"/>
+    <geom name="floor" pos="0 0 -0.1" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <body name="goal" >
+      <geom name="goal" type="mesh" mesh="object" conaffinity="0" contype="0" material="obj_material"
+        pos="0.0 0. 0.0" quat="1 0 0 0" />
+    </body>
+    
+    <body name="obj" >
+        <freejoint name="object_table"/>
+        <geom name="obj" type="mesh" mesh="object" material="obj_material"
+            pos="0.0 0.0 0.00" quat="1 0 0 0"
+            mass="0.01"
+            condim="6"
+            friction="0.5"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,92 @@
+<mujoco model="three_fingertip_cube">
+    <compiler angle="radian"/>
+    <size njmax="500" nconmax="100"/>
+    <asset>
+        <mesh name="object" file="../assets/objects/stick.stl"/>
+        <texture name='surface' file="../assets/textures/oak.png"/>
+        <material name="obj_material" texture="surface" specular="1" shininess="0.3" reflectance="0"/>
+
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4"
+        rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5"
+        reflectance="0.0"/>
+    </asset>
+
+    <worldbody>
+        <light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8"  castshadow="false" pos="0 1 4" dir="0 0 -1" name="light0"/>
+        <camera name="demo-cam3" pos="0.010 -0.385 0.122" xyaxes="1.000 -0.004 0.000 0.001 0.208 0.978"/>
+
+        <!-- ============================= virtual obj ========================================= -->
+        <!-- pos and quat attributes of virtual obj must be put in 'geom' -->
+        <body name="goal" >
+            <geom name="goal" type="mesh" mesh="object" conaffinity="0" contype="0" material="obj_material"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                rgba="1. 1 1. 0.3"/>
+            <geom name="goal-decoration" type="mesh" mesh="object" conaffinity="0" contype="0"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                rgba="0.0 1 0.0 0.2"/>
+            <site type="box" size="0.05 0.003 0.003" rgba="1 0 0 0.2" pos="0.05 0 0"/>
+            <site type="box" size="0.003 0.05 0.003" rgba="0 1 0 0.2" pos="0 0.05 0"/>
+        </body>
+
+        <!-- ============================= real obj ========================================= -->
+        <body name="obj" >
+            <freejoint name="object_table"/>
+            <geom name="obj" type="mesh" mesh="object" material="obj_material"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                mass="0.01"
+                condim="6"
+                friction="0.5" rgba="0.7 0.7 0.7 1.0"/>
+            <site type="box" size="0.05 0.003 0.003" rgba="1 0 0 0.2" pos="0.05 0 0"/>
+            <site type="box" size="0.003 0.05 0.003" rgba="0 1 0 0.2" pos="0 0.05 0"/>
+        </body>
+
+        <geom name="table" rgba="0.8 0.8 0.8 1.0" friction="0.5"
+                size="0 0 0.05" type="plane" material="groundplane" 
+                condim="6"
+              />
+
+        <body name="fingertip0" pos="0.0 0.0 0.0" quat="1 0 0 0">
+            <joint name="fingertip0_x" type="slide" axis="1 0 0"/>
+            <joint name="fingertip0_y" type="slide" axis="0 1 0"/>
+            <joint name="fingertip0_z" type="slide" axis="0 0 1"/>
+            <geom name="fingertip0" 
+                condim="6"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                size="0.01" type="sphere" friction="0.5" rgba="0.5 0 0 1"/>
+        </body>
+
+        <body name="fingertip1" pos="0.0 0.0 0.0" quat="1 0 0 0">
+            <joint name="fingertip1_x" type="slide" axis="1 0 0"/>
+            <joint name="fingertip1_y" type="slide" axis="0 1 0"/>
+            <joint name="fingertip1_z" type="slide" axis="0 0 1"/>
+            <geom name="fingertip1" 
+                condim="6"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                size="0.01" type="sphere" friction="0.5" rgba="0 0.5 0 1"/>
+        </body>
+
+        <body name="fingertip2" pos="0.0 0.0 0.0" quat="1 0 0 0">
+            <joint name="fingertip2_x" type="slide" axis="1 0 0"/>
+            <joint name="fingertip2_y" type="slide" axis="0 1 0"/>
+            <joint name="fingertip2_z" type="slide" axis="0 0 1"/>
+            <geom name="fingertip2" 
+                condim="6"
+                pos="0.0 0.0 0.0" quat="1 0 0 0"
+                size="0.01" type="sphere" friction="0.5" rgba="0 0 0.5 1"/>
+        </body>
+
+    </worldbody>
+
+    <actuator>
+        <motor name="fingertip0_refx" joint="fingertip0_x" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip0_refy" joint="fingertip0_y" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip0_refz" joint="fingertip0_z" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip1_refx" joint="fingertip1_x" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip1_refy" joint="fingertip1_y" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip1_refz" joint="fingertip1_z" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip2_refx" joint="fingertip2_x" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip2_refy" joint="fingertip2_y" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+        <motor name="fingertip2_refz" joint="fingertip2_z" ctrlrange="-1.5 1.5" ctrllimited="false"/>
+    </actuator>
+</mujoco>
