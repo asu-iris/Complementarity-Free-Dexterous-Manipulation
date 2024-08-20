@@ -14,7 +14,7 @@
 > - **Technical contribution:**  **complementarity-free multi-contact modeling and optimization** method,  effective for contact-interaction prediction and optimization-friendly for contact-rich planning.
 > - **State-of-the-art results:** the proposed method consistently achieves state-of-the-art results in various challenging dexterous manipulation tasks, e.g. fingertip 
 in-air manipulation, TriFinger in-hand manipulation, and Allegro
-hand on-palm reorientation, all with diverse objects:  96.5% success rate  across tasks, high manipulation accuracy: reorientation error of 11° and position error of 7.8 mm, and model predictive control running at 50-100 Hz for all  tasks. 
+hand on-palm reorientation, all with diverse objects:  96.5% success rate  across tasks, high manipulation accuracy: reorientation error of 11° and position error of 7.8 mm, and model predictive control running above 70Hz for all  tasks. 
 
 > ### Video Demo
 > [<img width="1000px"  src="./examples/figures/intro.png">](https://www.youtube.com/watch?v=NsL4hbSXvFg)
@@ -57,17 +57,17 @@ The command template shown is for MacOS users. For Linux users, start with  ```p
 
 For example, the following command on MacOS
 ```shell
-mjpython examples/mpc/fingertips/bunny/test-air.py
+mjpython examples/mpc/fingertips/cube/test-air.py
 ```
- runs the example of fintertips 3D in-air manipulation with Standford bunny.
+ runs the example of fintertips 3D in-air manipulation with cube.
 
 
 
 
 | object        	  | Command template (Linux: start with ```python```)                                             	 | replace ```****``` with                                                                                                                                         	|
 |------------------|----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| Stanford bunny 	 | ```mjpython examples/mpc/fingertips/bunny/test-****```     	                           | - ```air.py```: in-air manipulation <br> - ```ground-rotation.py```: on-ground rotation manipulation                                                              	|
 | cube           	 | ```mjpython examples/mpc/fingertips/cube/test-****```     	                            | - ```air.py```: in-air manipulation <br> - ```ground-flip.py```: on-ground flipping manipulation <br> - ```ground-rotation.py```: on-ground rotation manipulation 	|
+| Stanford bunny 	 | ```mjpython examples/mpc/fingertips/bunny/test-****```     	                           | - ```air.py```: in-air manipulation <br> - ```ground-rotation.py```: on-ground rotation manipulation                                                              	|
 | foambrick      	 | ```mjpython examples/mpc/fingertips/foambrick/test-****``` 	                           | - ```air.py```: in-air manipulation <br> - ```ground-flip.py```: on-ground flipping manipulation <br> - ```ground-rotation.py```: on-ground rotation manipulation 	|
 | stick          	 | ```mjpython examples/mpc/fingertips/stick/test-****```     	                           | - ```ground-flip.py```: on-ground flipping manipulation                                                                                                           	|
 
